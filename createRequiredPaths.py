@@ -37,6 +37,9 @@ for path in paths:
     if not os.path.exists(path):
         os.mkdir(path)
 
+
+
+
 # Copy generate_tfrecord.py to desired folder
 github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_generate_tfrecord/main/generate_tfrecord.py"
 response = requests.get(github_url)
@@ -75,3 +78,52 @@ if not os.path.exists('Tensorflow/workspace/pre-trained-models/ssd_mobilenet_v2_
     os.system('cd {} && wget http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8.tar.gz && tar -xvzf ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8.tar.gz'.format(PRETRAINED_MODEL_PATH))
     print("Downloaded pretrianed model")
 
+
+# Create description in folders
+#models
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/models_description.txt"
+response = requests.get(github_url)
+with open(APIMODEL_PATH+'/models_description.txt', "w") as f:
+    f.write(response.text)
+
+#scripts
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/scripts_description.txt"
+response = requests.get(github_url)
+with open(SCRIPTS_PATH+'/scripts_description.txt.txt', "w") as f:
+    f.write(response.text)
+
+#workspace/annotations
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/workspace_annotation_description.txt"
+response = requests.get(github_url)
+with open(ANNOTATIONS_PATH+'/workspace_annotation_description.txt', "w") as f:
+    f.write(response.text)
+
+
+#workspace/images
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/workspace_images_description.txt"
+response = requests.get(github_url)
+with open(IMAGE_PATH+'/workspace_images_description.txt', "w") as f:
+    f.write(response.text)
+
+#workspace/images/test
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/workspace_image_test_description.txt"
+response = requests.get(github_url)
+with open(TEST_PATH+'/workspace_image_test_description.txt', "w") as f:
+    f.write(response.text)
+
+#workspace/images/train
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/workspace_image_train_description.txt"
+response = requests.get(github_url)
+with open(TRAIN_PATH+'/workspace_image_train_description.txt', "w") as f:
+    f.write(response.text)
+
+
+#workspace/models/my_model
+github_url = "https://raw.githubusercontent.com/YaridTheBoi/tensorflow_easy_setup_files/main/workspace_models_my_ssd_mobnet_description.txt"
+response = requests.get(github_url)
+with open(CHECKPOINT_PATH+'workspace_models_my_ssd_mobnet_description.txt', "w") as f:
+    f.write(response.text)
+
+
+
+print("Created Descriptions")

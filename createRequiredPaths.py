@@ -64,9 +64,7 @@ if not os.path.exists(APIMODEL_PATH):
 
 
 os.system('cd {} && protoc object_detection/protos/*.proto --python_out=.'.format(APIMODEL_PATH+'/research'))
-
 os.system('cd {} && git clone https://github.com/cocodataset/cocoapi.git && cd cocoapi/PythonAPI && make && cp -r pycocotools {}'.format(APIMODEL_PATH+'/research', APIMODEL_PATH+'/research'))
-
 os.system('cd {} && cp object_detection/packages/tf2/setup.py . && python -m pip install .'.format(APIMODEL_PATH+'/research', APIMODEL_PATH+'/research'))
 
 # Default pretrained model http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8.tar.gz

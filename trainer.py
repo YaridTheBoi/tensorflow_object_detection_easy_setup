@@ -82,24 +82,21 @@ def copyModelConfig():
 
 def updateModelConfig():
     CONFIG_PATH = MODEL_PATH +'/' +CUSTOM_MODEL_NAME + '/pipeline.config'
-    lines = []
 
-    # with open(CONFIG_PATH, 'r') as config:
-    #     with open('temp.config', 'w') as new_config:
-    #         for line in config:
-    #             if "fine_tune_checkpoint_version: V2" not in line.strip('\n'):
-    #                 new_config.write(line)          #usun linijke co robi blad
 
-    # os.replace('temp.config', CONFIG_PATH)
-
-    config = config_util.get_configs_from_pipeline_file(CONFIG_PATH)
+    ids=[]
+    with open(ANNOTATIONS_PATH+'/label_map.pbtxt', 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            if 'id' in line:
+                ids.append(int(line.replace("id:", "").strip()))
 
     pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
     with tf.io.gfile.GFile(CONFIG_PATH, 'r') as f:
         proto_str = f.read()
         text_format.Merge(proto_str, pipeline_config)
 
-        pipeline_config.model.ssd.num_classes = 3           #TUTAJ ILE MASZ KLAS
+        pipeline_config.model.ssd.num_classes = max(ids)         
         pipeline_config.train_config.batch_size = 4
         pipeline_config.train_config.fine_tune_checkpoint = PRETRAINED_MODEL_PATH + '/ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8/checkpoint/ckpt-0'
         pipeline_config.train_config.fine_tune_checkpoint_type = 'detection'        #tutaj czy chcesz detection
